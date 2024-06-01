@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy the Maven project files
 COPY pom.xml .
 COPY src ./src
+COPY wait-for-it.sh /app/wait-for-it.sh
 
 # Package the application
 RUN mvn clean package -DskipTests
@@ -21,11 +22,11 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Adding wait 
-RUN chmod +x /usr/local/bin/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
 
 # Expose the application port (optional, adjust according to your app)
 EXPOSE 8081
 
 # Set the entry point
-ENTRYPOINT ["wait-for-it.sh", "mysql:3306", "--timeout=60", "--", "sh", "-c", "java", "-jar", "app.jar"]
+ENTRYPOINT ["/app/wait-for-it.sh", "mysql:3306", "--timeout=60", "--", "sh", "-c", "java", "-jar", "app.jar"]
 
