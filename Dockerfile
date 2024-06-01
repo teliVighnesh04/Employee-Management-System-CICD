@@ -9,6 +9,8 @@ COPY pom.xml .
 COPY src ./src
 COPY wait-for-it.sh /app/wait-for-it.sh
 
+RUN ls /app/
+
 # Package the application
 RUN mvn clean package -DskipTests
 
