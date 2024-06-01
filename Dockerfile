@@ -7,9 +7,6 @@ WORKDIR /app
 # Copy the Maven project files
 COPY pom.xml .
 COPY src ./src
-COPY wait-for-it.sh /app/wait-for-it.sh
-
-RUN ls /app/
 
 # Package the application
 RUN mvn clean package -DskipTests
@@ -22,6 +19,9 @@ WORKDIR /app
 
 # Copy the JAR file from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
+
+# Copy wait-for-it to /app
+COPY wait-for-it.sh /app/wait-for-it.sh
 
 # Adding wait 
 RUN chmod +x /app/wait-for-it.sh
