@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   ems:
-    image: vighneshteli/ems:latest
+    build:
+      context: .
     ports:
       - "8080:8080"
     depends_on:
