@@ -20,9 +20,12 @@ WORKDIR /app
 # Copy the JAR file from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
+# Adding wait 
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
 # Expose the application port (optional, adjust according to your app)
-EXPOSE 8080
+EXPOSE 8081
 
 # Set the entry point
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["wait-for-it.sh", "mysql:3306", "--timeout=60", "--", "sh", "-c", "java", "-jar", "app.jar"]
 
