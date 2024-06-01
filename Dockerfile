@@ -30,5 +30,5 @@ RUN chmod +x /app/wait-for-it.sh
 EXPOSE 8081
 
 # Set the entry point
-ENTRYPOINT ["/app/wait-for-it.sh", "mysql:3306", "--timeout=60", "--", "sh", "-c", "java", "-jar", "app.jar"]
+ENTRYPOINT ["/app/wait-for-it.sh", "mysql:3306", "--timeout=60", "--", "java", "-jar", "app.jar"]
 
