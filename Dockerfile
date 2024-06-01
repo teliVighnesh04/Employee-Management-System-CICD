@@ -24,7 +24,7 @@ COPY --from=builder /app/target/*.jar app.jar
 # Adding wait 
 RUN chmod +x /app/wait-for-it.sh
 
-# Expose the application port (optional, adjust according to your app)
+# Expose the port
 EXPOSE 8081
 
 # Set the entry point
