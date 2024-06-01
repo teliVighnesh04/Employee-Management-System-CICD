@@ -7,7 +7,6 @@ WORKDIR /app
 # Copy the Maven project files
 COPY pom.xml .
 COPY src ./src
-COPY wait-for-it.sh .
 
 # Package the application
 RUN mvn clean package -DskipTests
@@ -22,7 +21,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Adding wait 
-RUN chmod +x wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 # Expose the application port (optional, adjust according to your app)
 EXPOSE 8081
